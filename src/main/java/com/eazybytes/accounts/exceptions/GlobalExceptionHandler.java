@@ -13,6 +13,21 @@ import com.eazybytes.accounts.DTO.ErrorResponseDto;
 @ControllerAdvice
 public class GlobalExceptionHandler {
 
+	// This exception is global , means if no exception handler is found, then here all the exceptions would be handled
+		@ExceptionHandler(Exception.class)
+		public ResponseEntity<ErrorResponseDto> handleGlobalExceptions(Exception exception,
+									WebRequest webRequest){
+			
+			ErrorResponseDto errorResponseDto = new ErrorResponseDto(
+																	webRequest.getDescription(false),
+																	HttpStatus.INTERNAL_SERVER_ERROR,
+																	exception.getMessage(),
+																	LocalDateTime.now()
+																);
+			
+			 return new ResponseEntity<ErrorResponseDto>(errorResponseDto, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	
 	@ExceptionHandler(CustomerAlreadyExistsException.class)
 	public ResponseEntity<ErrorResponseDto> handleCustomerAlredyExistsException(CustomerAlreadyExistsException exception,
 								WebRequest webRequest){
@@ -38,4 +53,7 @@ public class GlobalExceptionHandler {
 		
 		 return new ResponseEntity<ErrorResponseDto>(errorResponseDto, HttpStatus.NOT_FOUND);
 	}
+	
+	
+	
 }

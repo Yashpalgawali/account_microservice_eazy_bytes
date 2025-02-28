@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @ToString
-@MappedSuperclass // This annotaion will tell the spring data jpa that this class is going to be the super class for all the entities
+@MappedSuperclass // This annotation will tell the spring data JPA that this class is going to be the super class for all the entities
 public class BaseEntity {
 
 	@Column(updatable = false)
